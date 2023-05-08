@@ -15,7 +15,6 @@ import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.Selenide.webdriver;
 import static org.apache.http.HttpStatus.SC_OK;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertEquals;
 
 public class LoginTest {
 
@@ -30,7 +29,7 @@ public class LoginTest {
     public void setUp() {
         userRestAuth = new UserRestAuth();
         profile = UserGenerator.getRandomUser();
-        userRestAuth.registerUser(profile)
+        accessToken = userRestAuth.registerUser(profile)
                 .assertThat()
                 .statusCode(SC_OK)
                 .body("success", is(true)).extract().path("accessToken");
@@ -53,8 +52,7 @@ public class LoginTest {
                 .enterEmail(userLogin.getEmail())
                 .enterPassword(userLogin.getPassword())
                 .clickLoginButton();
-        boolean result = true;
-        assertEquals(result, mainPage.checkMakeOrderButtonVisibility());
+        mainPage.checkMakeOrderButtonVisibility();
     }
 
     @Test
@@ -65,8 +63,7 @@ public class LoginTest {
                 .enterEmail(userLogin.getEmail())
                 .enterPassword(userLogin.getPassword())
                 .clickLoginButton();
-        boolean result = true;
-        assertEquals(result, mainPage.checkMakeOrderButtonVisibility());
+        mainPage.checkMakeOrderButtonVisibility();
     }
 
     @Test
@@ -79,8 +76,7 @@ public class LoginTest {
                 .enterEmail(userLogin.getEmail())
                 .enterPassword(userLogin.getPassword())
                 .clickLoginButton();
-        boolean result = true;
-        assertEquals(result, mainPage.checkMakeOrderButtonVisibility());
+        mainPage.checkMakeOrderButtonVisibility();
     }
 
     @Test
@@ -93,7 +89,6 @@ public class LoginTest {
                 .enterEmail(userLogin.getEmail())
                 .enterPassword(userLogin.getPassword())
                 .clickLoginButton();
-        boolean result = true;
-        assertEquals(result, mainPage.checkMakeOrderButtonVisibility());
+        mainPage.checkMakeOrderButtonVisibility();
     }
 }

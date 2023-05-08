@@ -31,7 +31,7 @@ public class ProfileTest {
     public void setUp() {
         userRestAuth = new UserRestAuth();
         profile = UserGenerator.getRandomUser();
-        userRestAuth.registerUser(profile)
+        accessToken = userRestAuth.registerUser(profile)
                 .assertThat()
                 .statusCode(SC_OK)
                 .body("success", is(true)).extract().path("accessToken");

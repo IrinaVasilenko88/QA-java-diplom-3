@@ -28,7 +28,7 @@ public class ConstructorTest {
     public void setUp() {
         userRestAuth = new UserRestAuth();
         profile = UserGenerator.getRandomUser();
-        userRestAuth.registerUser(profile)
+        accessToken = userRestAuth.registerUser(profile)
                 .assertThat()
                 .statusCode(SC_OK)
                 .body("success", is(true)).extract().path("accessToken");
@@ -53,7 +53,7 @@ public class ConstructorTest {
 
     @Test
     @DisplayName("Check buns tab by click on it-Переход к разделу «Булки»")
-    public void checkBunsTabByClickItTest()  {
+    public void checkBunsTabByClickItTest() {
         mainPage.clickOnFillingsTab();
         mainPage.clickOnSaucesTab();
         mainPage.clickOnBunsTab();

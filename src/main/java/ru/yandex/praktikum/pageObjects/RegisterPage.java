@@ -42,17 +42,17 @@ public class RegisterPage {
     @FindBy(how = How.XPATH, using = ".//a[text()='Войти']")
     private SelenideElement loginLink;
 
-    @Step("Fulfill Name")
+    @Step("Fulfil Name")
     public void fulfillName(String name) {
         nameInput.setValue(name);
     }
 
-    @Step("Fulfill Password")
+    @Step("Fulfil Password")
     public void fulfillPassword(String password) {
         passwordInput.setValue(password);
     }
 
-    @Step("Fulfill email")
+    @Step("Fulfil email")
     public void fulfillEmail(String email) {
         emailInput.setValue(email);
     }

@@ -13,7 +13,8 @@ import ru.yandex.praktikum.pageObjects.RegisterPage;
 import ru.yandex.praktikum.rest.UserRestAuth;
 
 import static com.codeborne.selenide.Selenide.*;
-import static org.junit.Assert.assertEquals;
+import static org.apache.http.HttpStatus.SC_OK;
+import static org.apache.http.HttpStatus.SC_UNAUTHORIZED;
 
 public class RegistrationTest {
 
@@ -23,6 +24,7 @@ public class RegistrationTest {
     private String accessToken;
     private UserProfile profile;
     private UserLogin userLogin;
+
 
     @Before
     public void setUp() {
@@ -46,8 +48,10 @@ public class RegistrationTest {
     public void successfulRegistration() {
         profile = UserGenerator.getRandomUser();
         register.registerNewUser(profile);
-        boolean result = true;
-        assertEquals(result, loginPage.checkLoginHeader());
+        loginPage.checkLoginHeader();
+        UserLogin userLogin = new UserLogin(profile.getEmail(), profile.getPassword());
+        accessToken = userRestAuth.accessToken(userRestAuth.loginUser(userLogin)
+                .assertThat().statusCode(SC_OK));
     }
 
     @Test
@@ -55,8 +59,10 @@ public class RegistrationTest {
     public void incorrectPasswordRegistration() {
         profile = UserGenerator.getUserWithInvalidPassword();
         register.registerNewUser(profile);
-        boolean result = true;
-        assertEquals(result, register.checkInvalidPasswordNotification());
+        register.checkInvalidPasswordNotification();
+        UserLogin userLogin = new UserLogin(profile.getEmail(), profile.getPassword());
+        accessToken = userRestAuth.accessToken(userRestAuth.loginUser(userLogin)
+                .assertThat().statusCode(SC_UNAUTHORIZED));
 
     }
 }

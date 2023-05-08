@@ -94,9 +94,8 @@ public class MainPage {
     }
 
     @Step("Check make order button visibility")
-    public boolean checkMakeOrderButtonVisibility() {
+    public void checkMakeOrderButtonVisibility() {
         makeOrderButton.shouldBe(Condition.visible);
-        return true;
     }
 
     @Step("Check Constructor text visibility")
